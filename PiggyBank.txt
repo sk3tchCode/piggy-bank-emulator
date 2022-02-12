@@ -1,0 +1,154 @@
+public class PiggyBank{
+    
+    // instance variables -----------------------------------------------
+    private String ownerName;
+    private int nickels;
+    private int dimes;
+    private int quarters;
+    
+    // constructor ------------------------------------------------------
+    /**
+     * the constructor method of this class, it assigns values to all of the
+     * instance variables depending on the inputted parameters
+     * 
+     * @param theOwnerName  the (String) value to be assigned to ownerName
+     * @param theNickels    the (int) value to be assigned to nickels
+     * @param theDimes      the (int) value to be assigned to dimes
+     * @param theQuarters   the (int) value to be assigned to quarters
+     */
+    public PiggyBank(String theOwnerName, int theNickels, int theDimes, int theQuarters){
+        // only sets values if the inputted coin amounts are > -1 to avoid a negative
+        // amount of coins
+        if(theNickels > -1){
+            nickels = theNickels;
+        }
+        if(theDimes > -1){
+            dimes = theDimes;
+        }
+        if(theQuarters > -1){
+            quarters = theQuarters;
+        }
+        ownerName = theOwnerName;
+    }
+    
+    // getter ----------------------------------------------------------
+    /**
+     * this getter method returns the total amount of money in the bank
+     * by adding the number of coins of each type multiplied by their value 
+     * 
+     * @return  total money in dollars (double)
+     */
+    public double getTotalMoney(){
+        return nickels * 0.05 + dimes * 0.10 + quarters * 0.25;
+    }
+    
+    // other ------------------------------------------------------------
+    /**
+     * this method adds an integer value to the instance variable 'nickels'
+     * the amount added depends on the parameter input, it doesnt add if 
+     * the input is less that 0
+     * 
+     * @param addNickels  the (int) value to be added to nickels
+     */
+    public void addNickels(int addedNickels){
+        // does not count parameter values less than 0, otherwise coins could
+        // be subtracted
+        if(addedNickels > -1){
+            nickels += addedNickels;
+        }
+    }
+    
+    /**
+     * this method adds an integer value to the instance variable 'dimes'
+     * the amount added depends on the parameter input, it doesnt add if 
+     * the input is less that 0
+     * 
+     * @param addDimes  the (int) value to be added to dimes
+     */
+    public void addDimes(int addedDimes){
+        // does not count parameter values less than 0, otherwise coins could
+        // be subtracted
+        if(addedDimes > -1){
+            dimes += addedDimes;
+        }
+    }
+    
+    /**
+     * this method adds an integer value to the instance variable 'quarters'
+     * the amount added depends on the parameter input, it doesnt add if 
+     * the input is less that 0
+     * 
+     * @param addQuarters  the (int) value to be added to quarters
+     */
+    public void addQuarters(int addedQuarters){
+        // does not count parameter values less than 0, otherwise coins could
+        // be subtracted
+        if(addedQuarters > -1){
+            quarters += addedQuarters;
+        }
+    }
+    
+    /**
+     * this method subtracts integer values from the instance variables 'nickels',
+     * 'dimes' and 'quarters.' The amount subtracted depends on the parameter inputs,
+     * it does not subtract if parameter input is greater than the current amount of
+     * the type of coin or is less than 0
+     * 
+     * @param minusNickels    the (int) value to be subtracted from nickels
+     * @param minusDimes      the (int) value to be subtracted from dimes
+     * @param minusQuarters   the (int) value to be subtracted from quarters
+     */
+    public void takeOutCoins(int minusNickels, int minusDimes, int minusQuarters){
+        // all the ifs check to see if the instance variable is greater than the
+        // respective parameter value because if it's smaller there would be a
+        // negative amount of coins!
+        // does not count parameter values less than 0, otherwise coins could be
+        // added instead of taken out
+        if(nickels >= minusNickels && minusNickels > -1){
+            nickels -= minusNickels;
+        }
+        
+        if(dimes >= minusDimes && minusDimes > -1){
+            dimes -= minusDimes;
+        }
+        
+        if(quarters >= minusQuarters && minusQuarters > -1){
+            quarters -= minusQuarters;
+        }
+    }
+
+    // toString --------------------------------------------------------
+    /**
+     * the toString method returns a string with information of the bank such as 
+     * amount of money, number or coins and the owner's name
+     * 
+     * @return  returns a formatted string with the owner's name, amount of money in the
+     *          bank (in $) and the number of each type of coin (nickel, dime and quarter)
+     *          that is currently in the bank
+     */
+    public String toString(){
+        double totalMoney = getTotalMoney();
+        String nickelsStatement = "Nickels: " + nickels;
+        String dimesStatement = "Dimes: " + dimes;
+        String quartersStatement = "Quarters: " + quarters;
+        String nameStatement = ownerName;
+        String underline = "";
+        
+        // checks to see if the owner's name ends with s for correct punctuation
+        if(ownerName.substring(ownerName.length() - 1).equals("s")){
+            nameStatement += "'";
+        }else{
+            nameStatement += "'s";
+        }
+        
+        nameStatement += " Piggy Bank:\n";
+        
+        // creates an underline for nameStatement
+        for(int i = 0; i < nameStatement.length() - 1; i++){
+            underline += "-";
+        }
+        
+        return nameStatement + underline + "\nTotal Money: $" + totalMoney + "\n" + nickelsStatement + "\n" + dimesStatement + "\n" + quartersStatement;
+    }
+    
+}

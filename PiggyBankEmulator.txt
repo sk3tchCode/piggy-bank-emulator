@@ -1,0 +1,61 @@
+/** This program simulates a piggy bank, it takes the user's name and asks
+ *  for how many coins of each type (nickel, dime and quarter) they have at
+ *  the start. After that, it gives the user various options: to add money to
+ *  their bank, to take out money, to look at their bank total, and to exit.
+ * @author Ahsan Abdullah
+ * @version 1
+ */
+public class PiggyBankEmulator extends ConsoleProgram
+{
+    
+    public void run()
+    {
+        String options = "\n1. Show total in bank\n2. Add nickel(s)\n3. Add dime(s)\n4. Add quarter(s)\n5. Take money out of the bank\nEnter 0 to quit";
+        
+        System.out.println("Welcome to the Piggy Bank Emulator!\n");
+        
+        // gets user input to initialize the bank object
+        String usersName = readLine("Enter your name: ");
+        int usersNickels = readInt("Enter the amount of nickels: ");
+        int usersDimes = readInt("Enter the amount of dimes: ");
+        int usersQuarters = readInt("Enter the amount of quarters: ");
+        
+        // creates bank with given user input
+        PiggyBank bank = new PiggyBank(usersName, usersNickels, usersDimes, usersQuarters);
+        
+        // loops options until the user quits
+        while(true){
+            // start of every loop always prompts the user to pick an option
+            System.out.println(options);
+            int input = readInt("Enter your choice: ");
+            System.out.println("");
+            
+            if(input == 1){ // option 1: Show total in bank
+                System.out.println(bank.toString());
+            }else if(input == 2){ // option 2: Add nickel(s)
+                int nickelsToAdd = readInt("How many nickels do you wish to add? ");
+                bank.addNickels(nickelsToAdd);
+            }else if(input == 3){ // option 3: Add dime(s)
+                int dimesToAdd = readInt("How many dimes do you wish to add? ");
+                bank.addDimes(dimesToAdd);
+            }else if(input == 4){ // option 4: Add quarter(s)
+                int quartersToAdd = readInt("How many quarters do you wish to add? ");
+                bank.addQuarters(quartersToAdd);
+            }else if(input == 5){ // option 5: Take money out of the bank
+                double totalMoneyStart = bank.getTotalMoney();
+                
+                int nickelsToWithdraw = readInt("How many nickels do you wish to withdraw? ");
+                int dimesToWithdraw = readInt("How many dimes do you wish to withdraw? ");
+                int quartersToWithdraw = readInt("How many quarters do you wish to withdraw? ");
+                bank.takeOutCoins(nickelsToWithdraw, dimesToWithdraw, quartersToWithdraw);
+                
+                double totalMoneyEnd = bank.getTotalMoney();
+                
+                System.out.println("Successfully withdrew: $" + (totalMoneyStart - totalMoneyEnd));
+            }else if(input == 0){ // Press 0 to exit
+                break;
+            }
+        }
+    }
+    
+}
